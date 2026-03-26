@@ -57,4 +57,56 @@ internal static class NativeMethods
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+    // -----------------------------------------------------------------------
+    // Per-pixel alpha layered window (UpdateLayeredWindow)
+    // -----------------------------------------------------------------------
+
+    internal const int  ULW_ALPHA    = 0x00000002;
+    internal const byte AC_SRC_OVER  = 0x00;
+    internal const byte AC_SRC_ALPHA = 0x01;
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct POINT { public int x; public int y; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct SIZE { public int cx; public int cy; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct BLENDFUNCTION
+    {
+        public byte BlendOp;
+        public byte BlendFlags;
+        public byte SourceConstantAlpha;
+        public byte AlphaFormat;
+    }
+
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool UpdateLayeredWindow(
+        IntPtr hwnd, IntPtr hdcDst,
+        ref POINT pptDst, ref SIZE psize,
+        IntPtr hdcSrc, ref POINT pptSrc,
+        uint crKey, ref BLENDFUNCTION pblend, uint dwFlags);
+
+    [DllImport("user32.dll")]
+    internal static extern IntPtr GetDC(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+    [DllImport("gdi32.dll")]
+    internal static extern IntPtr CreateCompatibleDC(IntPtr hdc);
+
+    [DllImport("gdi32.dll")]
+    internal static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
+
+    [DllImport("gdi32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool DeleteObject(IntPtr hObject);
+
+    [DllImport("gdi32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool DeleteDC(IntPtr hdc);
 }

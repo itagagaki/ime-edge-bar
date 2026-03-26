@@ -1,4 +1,5 @@
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ImeEdgeBar;
@@ -15,8 +16,10 @@ public partial class MainForm : Form
     private const int ToggleVisibilityHotkeyId = 1;
     private const int WS_EX_NOACTIVATE = 0x08000000;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_LAYERED    = 0x00080000;
 
     private bool _imeOn;
+    private double _bgOpacity = 1.0;
     private Point _mousePos;
     private Screen? _currentScreen;
     private IntPtr _currentTrayIconHandle = IntPtr.Zero;
@@ -58,7 +61,7 @@ public partial class MainForm : Form
         get
         {
             var cp = base.CreateParams;
-            cp.ExStyle |= WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW;
+            cp.ExStyle |= WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW | WS_EX_LAYERED;
             return cp;
         }
     }
@@ -114,7 +117,7 @@ public partial class MainForm : Form
         }
 
         if (mouseMoved)
-            Invalidate();
+            RefreshLayered();
     }
 
     // -----------------------------------------------------------------------
@@ -162,6 +165,7 @@ public partial class MainForm : Form
             EdgePosition.Right  => new Rectangle(wa.Right - t, wa.Top,     t,         wa.Height),
             _                   => new Rectangle(wa.Left, wa.Top,          wa.Width,  t),
         };
+        RefreshLayered();
     }
 
     private void ApplySettings()
@@ -176,27 +180,22 @@ public partial class MainForm : Form
         if (_imeOn)
         {
             BackColor = Color.FromArgb(255, Color.FromArgb(_settings.ImeOnColorArgb));
-            Opacity = Math.Clamp(_settings.ImeOnOpacity, 0.01, 1.0);
+            _bgOpacity = Math.Clamp(_settings.ImeOnOpacity, 0.01, 1.0);
         }
         else
         {
             BackColor = Color.FromArgb(255, Color.FromArgb(_settings.ImeOffColorArgb));
-            Opacity = Math.Clamp(_settings.ImeOffOpacity, 0.01, 1.0);
+            _bgOpacity = Math.Clamp(_settings.ImeOffOpacity, 0.01, 1.0);
         }
-        Invalidate();
+        RefreshLayered();
     }
 
     // -----------------------------------------------------------------------
     // Painting: background colour is set via BackColor; OnPaint draws the arrow
     // -----------------------------------------------------------------------
 
-    protected override void OnPaint(PaintEventArgs e)
-    {
-        base.OnPaint(e);
-        var g = e.Graphics;
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-        DrawArrow(g);
-    }
+    protected override void OnPaint(PaintEventArgs e) { }
+    protected override void OnPaintBackground(PaintEventArgs e) { }
 
     /// <summary>
     /// Draws a filled triangle inside the bar at the current mouse coordinate.
@@ -239,7 +238,7 @@ public partial class MainForm : Form
             _                   => [new(pos - half, 0),  new(pos + half, 0),  new(pos, h)],
         };
 
-        using var brush = new SolidBrush(GetContrastColor(BackColor));
+        using var brush = new SolidBrush(Color.FromArgb(255, GetContrastColor(BackColor)));
         g.FillPolygon(brush, pts);
     }
 
@@ -248,6 +247,107 @@ public partial class MainForm : Form
     {
         float luminance = (0.299f * bg.R + 0.587f * bg.G + 0.114f * bg.B) / 255f;
         return luminance > 0.45f ? Color.FromArgb(180, 0, 0, 0) : Color.FromArgb(200, 255, 255, 255);
+    }
+
+    // -----------------------------------------------------------------------
+    // Layered window painting (per-pixel alpha)
+    // -----------------------------------------------------------------------
+
+    /// <summary>
+    /// Repaints the window via UpdateLayeredWindow so the background respects
+    /// the configured opacity while the arrow is always fully opaque (alpha = 255).
+    /// </summary>
+    private void RefreshLayered()
+    {
+        if (!IsHandleCreated || ClientSize.Width <= 0 || ClientSize.Height <= 0) return;
+
+        int w = ClientSize.Width;
+        int h = ClientSize.Height;
+
+        using var bmp = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        using (var g = Graphics.FromImage(bmp))
+        {
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.Clear(Color.Transparent);
+
+            byte bgAlpha = (byte)Math.Clamp((int)(_bgOpacity * 255), 1, 255);
+            using (var bgBrush = new SolidBrush(Color.FromArgb(bgAlpha, BackColor)))
+                g.FillRectangle(bgBrush, 0, 0, w, h);
+
+            DrawArrow(g);
+        }
+
+        PremultiplyAlpha(bmp);
+
+        IntPtr screenDc  = NativeMethods.GetDC(IntPtr.Zero);
+        IntPtr memDc     = NativeMethods.CreateCompatibleDC(screenDc);
+        IntPtr hBitmap   = IntPtr.Zero;
+        IntPtr oldBitmap = IntPtr.Zero;
+        try
+        {
+            hBitmap  = bmp.GetHbitmap(Color.FromArgb(0));
+            oldBitmap = NativeMethods.SelectObject(memDc, hBitmap);
+
+            var pptDst = new NativeMethods.POINT { x = Left, y = Top };
+            var psize  = new NativeMethods.SIZE  { cx = w, cy = h };
+            var pptSrc = new NativeMethods.POINT { x = 0, y = 0 };
+            var blend  = new NativeMethods.BLENDFUNCTION
+            {
+                BlendOp             = NativeMethods.AC_SRC_OVER,
+                BlendFlags          = 0,
+                SourceConstantAlpha = 255,
+                AlphaFormat         = NativeMethods.AC_SRC_ALPHA,
+            };
+
+            NativeMethods.UpdateLayeredWindow(
+                Handle, screenDc,
+                ref pptDst, ref psize,
+                memDc, ref pptSrc,
+                0, ref blend, NativeMethods.ULW_ALPHA);
+        }
+        finally
+        {
+            NativeMethods.ReleaseDC(IntPtr.Zero, screenDc);
+            if (hBitmap != IntPtr.Zero)
+            {
+                NativeMethods.SelectObject(memDc, oldBitmap);
+                NativeMethods.DeleteObject(hBitmap);
+            }
+            NativeMethods.DeleteDC(memDc);
+        }
+    }
+
+    /// <summary>
+    /// Converts a 32bppArgb bitmap from straight alpha to premultiplied alpha,
+    /// which is required by UpdateLayeredWindow (AC_SRC_ALPHA).
+    /// </summary>
+    private static void PremultiplyAlpha(Bitmap bmp)
+    {
+        var rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+        var data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
+                                System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        try
+        {
+            int total = Math.Abs(data.Stride) * bmp.Height;
+            byte[] pixels = new byte[total];
+            Marshal.Copy(data.Scan0, pixels, 0, total);
+
+            for (int i = 0; i < pixels.Length; i += 4)
+            {
+                byte a = pixels[i + 3];
+                if (a == 255) continue;
+                if (a == 0)   { pixels[i] = pixels[i + 1] = pixels[i + 2] = 0; continue; }
+                pixels[i]     = (byte)(pixels[i]     * a / 255);
+                pixels[i + 1] = (byte)(pixels[i + 1] * a / 255);
+                pixels[i + 2] = (byte)(pixels[i + 2] * a / 255);
+            }
+
+            Marshal.Copy(pixels, 0, data.Scan0, total);
+        }
+        finally
+        {
+            bmp.UnlockBits(data);
+        }
     }
 
     // -----------------------------------------------------------------------
