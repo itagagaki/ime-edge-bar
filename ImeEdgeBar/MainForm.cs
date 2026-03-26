@@ -74,6 +74,12 @@ public partial class MainForm : Form
             NativeMethods.MOD_CONTROL | NativeMethods.MOD_ALT, (uint)Keys.B);
     }
 
+    protected override void OnShown(EventArgs e)
+    {
+        base.OnShown(e);
+        RepositionWindow();
+    }
+
     protected override void WndProc(ref Message m)
     {
         if (m.Msg == NativeMethods.WM_HOTKEY && m.WParam.ToInt32() == ToggleVisibilityHotkeyId)
