@@ -310,6 +310,8 @@ public partial class MainForm : Form
             ApplySettings();
             UpdateTrayIcon();
         }
+        _settingsForm.Dispose();
+        _settingsForm = null;
     }
 
     private void ExitApplication()
