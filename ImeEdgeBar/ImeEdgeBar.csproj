@@ -7,10 +7,15 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ApplicationIcon>app.ico</ApplicationIcon>
     <AssemblyTitle>IME Edge Bar</AssemblyTitle>
     <AssemblyDescription>Screen-edge bar showing mouse position and IME state</AssemblyDescription>
     <Company>itagagaki</Company>
     <Version>1.0.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" />
+  </ItemGroup>
 
 </Project>
