@@ -17,6 +17,15 @@ internal static class NativeMethods
     /// <summary>Posted to a window when a registered hotkey is pressed.</summary>
     internal const int WM_HOTKEY = 0x0312;
 
+    /// <summary>Broadcast to all top-level windows when the display resolution or colour depth changes.</summary>
+    internal const int WM_DISPLAYCHANGE = 0x007E;
+
+    /// <summary>Broadcast when a system-wide setting changes (e.g. work-area size via SPI_SETWORKAREA).</summary>
+    internal const int WM_SETTINGCHANGE = 0x001A;
+
+    /// <summary>SystemParametersInfo action: working area changed (sent with WM_SETTINGCHANGE).</summary>
+    internal const int SPI_SETWORKAREA = 0x002F;
+
     /// <summary>Modifier flag for RegisterHotKey: Control key.</summary>
     internal const uint MOD_CONTROL = 0x0002;
 

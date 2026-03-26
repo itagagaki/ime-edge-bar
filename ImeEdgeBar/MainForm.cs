@@ -92,6 +92,16 @@ public partial class MainForm : Form
     {
         if (m.Msg == NativeMethods.WM_HOTKEY && m.WParam.ToInt32() == ToggleVisibilityHotkeyId)
             ToggleVisibility();
+
+        // Reposition the bar when the display configuration changes
+        // (resolution / DPI scale applied in Display Settings).
+        if (m.Msg == NativeMethods.WM_DISPLAYCHANGE)
+            ApplySettings();
+
+        // Reposition when the work area changes (e.g. taskbar moved/resized).
+        if (m.Msg == NativeMethods.WM_SETTINGCHANGE && m.WParam.ToInt32() == NativeMethods.SPI_SETWORKAREA)
+            ApplySettings();
+
         base.WndProc(ref m);
     }
 
@@ -104,7 +114,9 @@ public partial class MainForm : Form
         var newMousePos = Cursor.Position;
         var newScreen = Screen.FromPoint(newMousePos);
 
-        bool screenChanged = _currentScreen?.DeviceName != newScreen.DeviceName;
+        bool screenChanged = _currentScreen?.DeviceName    != newScreen.DeviceName
+                          || _currentScreen?.WorkingArea  != newScreen.WorkingArea
+                          || _currentScreen?.Bounds       != newScreen.Bounds;
         bool mouseMoved = newMousePos != _mousePos;
 
         _mousePos = newMousePos;
