@@ -24,8 +24,12 @@ public partial class MainForm : Form
     private Screen? _currentScreen;
     private IntPtr _currentTrayIconHandle = IntPtr.Zero;
 
+    // Settings
     private readonly AppSettings _settings = AppSettings.Load();
     private SettingsForm? _settingsForm;
+
+    // About
+    private AboutForm? _aboutForm;
 
     public MainForm()
     {
@@ -41,6 +45,7 @@ public partial class MainForm : Form
         contextMenu.Items.Add("表示 / 非表示  (Ctrl+Alt+B)", null, (_, _) => ToggleVisibility());
         contextMenu.Items.Add(new ToolStripSeparator());
         contextMenu.Items.Add("設定...", null, (_, _) => OpenSettings());
+        contextMenu.Items.Add("About", null, (_, _) => OpenAbout());
         contextMenu.Items.Add(new ToolStripSeparator());
         contextMenu.Items.Add("終了", null, (_, _) => ExitApplication());
         _notifyIcon.ContextMenuStrip = contextMenu;
@@ -395,6 +400,33 @@ public partial class MainForm : Form
         }
     }
 
+    // -----------------------------------------------------------------------
+    // About dialog
+    // -----------------------------------------------------------------------
+
+    private void OpenAbout()
+    {
+        if (_aboutForm != null)
+        {
+            _aboutForm.Activate();
+            return;
+        }
+
+        using var form = new AboutForm();
+        _aboutForm = form;
+        try
+        {
+            form.ShowDialog(this);
+        }
+        finally
+        {
+            _aboutForm = null;
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Settings
+    // -----------------------------------------------------------------------
     private void OpenSettings()
     {
         if (_settingsForm != null && !_settingsForm.IsDisposed)
@@ -403,29 +435,33 @@ public partial class MainForm : Form
             return;
         }
 
-        _settingsForm = new SettingsForm(_settings);
-        if (_settingsForm.ShowDialog() == DialogResult.OK)
+        using var form = new SettingsForm(_settings);
+        _settingsForm = form;
+        try
         {
-            _settings.Position       = _settingsForm.Position;
-            _settings.BarThickness   = _settingsForm.BarThickness;
-            _settings.ImeOnColorArgb = _settingsForm.ImeOnColorArgb;
-            _settings.ImeOnOpacity   = _settingsForm.ImeOnOpacity;
-            _settings.ImeOffColorArgb = _settingsForm.ImeOffColorArgb;
-            _settings.ImeOffOpacity  = _settingsForm.ImeOffOpacity;
-            _settings.Save();
-            ApplySettings();
-            UpdateTrayIcon();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _settings.Position = form.Position;
+                _settings.BarThickness = form.BarThickness;
+                _settings.ImeOnColorArgb = form.ImeOnColorArgb;
+                _settings.ImeOnOpacity = form.ImeOnOpacity;
+                _settings.ImeOffColorArgb = form.ImeOffColorArgb;
+                _settings.ImeOffOpacity = form.ImeOffOpacity;
+                _settings.Save();
+                ApplySettings();
+                UpdateTrayIcon();
+            }
         }
-        _settingsForm.Dispose();
-        _settingsForm = null;
+        finally
+        {
+            _settingsForm.Dispose();
+            _settingsForm = null;
+        }
     }
 
-    private void ExitApplication()
-    {
-        NativeMethods.UnregisterHotKey(Handle, ToggleVisibilityHotkeyId);
-        _notifyIcon.Visible = false;
-        Application.Exit();
-    }
+    // -----------------------------------------------------------------------
+    // Window closing / exit
+    // -----------------------------------------------------------------------
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
@@ -436,5 +472,12 @@ public partial class MainForm : Form
             return;
         }
         base.OnFormClosing(e);
+    }
+
+    private void ExitApplication()
+    {
+        NativeMethods.UnregisterHotKey(Handle, ToggleVisibilityHotkeyId);
+        _notifyIcon.Visible = false;
+        Application.Exit();
     }
 }
