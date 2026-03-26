@@ -117,7 +117,7 @@ partial class SettingsForm
 
         _lblImeOnOpacity.Location = new Point(12, 62); _lblImeOnOpacity.Size = new Size(72, 17); _lblImeOnOpacity.Text = "不透明度：";
         _trkImeOnOpacity.Location = new Point(88, 52); _trkImeOnOpacity.Size = new Size(236, 30);
-        _trkImeOnOpacity.Minimum  = 1; _trkImeOnOpacity.Maximum = 100; _trkImeOnOpacity.TickFrequency = 10;
+        _trkImeOnOpacity.Minimum  = 0; _trkImeOnOpacity.Maximum = 100; _trkImeOnOpacity.TickFrequency = 10;
         _lblImeOnOpacityValue.Location  = new Point(330, 62); _lblImeOnOpacityValue.Size  = new Size(34, 17);
         _lblImeOnOpacityValue.TextAlign = ContentAlignment.MiddleRight;
 
@@ -136,7 +136,7 @@ partial class SettingsForm
 
         _lblImeOffOpacity.Location = new Point(12, 62); _lblImeOffOpacity.Size = new Size(72, 17); _lblImeOffOpacity.Text = "不透明度：";
         _trkImeOffOpacity.Location = new Point(88, 52); _trkImeOffOpacity.Size = new Size(236, 30);
-        _trkImeOffOpacity.Minimum  = 1; _trkImeOffOpacity.Maximum = 100; _trkImeOffOpacity.TickFrequency = 10;
+        _trkImeOffOpacity.Minimum  = 0; _trkImeOffOpacity.Maximum = 100; _trkImeOffOpacity.TickFrequency = 10;
         _lblImeOffOpacityValue.Location  = new Point(330, 62); _lblImeOffOpacityValue.Size  = new Size(34, 17);
         _lblImeOffOpacityValue.TextAlign = ContentAlignment.MiddleRight;
 
@@ -149,6 +149,7 @@ partial class SettingsForm
         // ── Form ─────────────────────────────────────────────────────────
         AcceptButton = _btnOk;
         CancelButton = _btnCancel;
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize  = new Size(392, 392);
         Controls.AddRange([_grpPosition, _grpSize, _grpImeOn, _grpImeOff, _btnOk, _btnCancel]);

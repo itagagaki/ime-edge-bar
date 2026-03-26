@@ -180,12 +180,12 @@ public partial class MainForm : Form
         if (_imeOn)
         {
             BackColor = Color.FromArgb(255, Color.FromArgb(_settings.ImeOnColorArgb));
-            _bgOpacity = Math.Clamp(_settings.ImeOnOpacity, 0.01, 1.0);
+            _bgOpacity = Math.Clamp(_settings.ImeOnOpacity, 0.0, 1.0);
         }
         else
         {
             BackColor = Color.FromArgb(255, Color.FromArgb(_settings.ImeOffColorArgb));
-            _bgOpacity = Math.Clamp(_settings.ImeOffOpacity, 0.01, 1.0);
+            _bgOpacity = Math.Clamp(_settings.ImeOffOpacity, 0.0, 1.0);
         }
         RefreshLayered();
     }
@@ -270,7 +270,7 @@ public partial class MainForm : Form
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(Color.Transparent);
 
-            byte bgAlpha = (byte)Math.Clamp((int)(_bgOpacity * 255), 1, 255);
+            byte bgAlpha = (byte)Math.Clamp((int)(_bgOpacity * 255), 0, 255);
             using (var bgBrush = new SolidBrush(Color.FromArgb(bgAlpha, BackColor)))
                 g.FillRectangle(bgBrush, 0, 0, w, h);
 

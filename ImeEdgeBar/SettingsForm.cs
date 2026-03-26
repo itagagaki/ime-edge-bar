@@ -18,12 +18,6 @@ internal partial class SettingsForm : Form
     {
         InitializeComponent();
 
-        // Centre on the working area of the monitor that holds the cursor
-        var wa = Screen.FromPoint(Cursor.Position).WorkingArea;
-        Location = new Point(
-            wa.Left + (wa.Width  - Width)  / 2,
-            wa.Top  + (wa.Height - Height) / 2);
-
         // Populate position
         _rdoTop.Checked    = settings.Position == EdgePosition.Top;
         _rdoBottom.Checked = settings.Position == EdgePosition.Bottom;
@@ -35,11 +29,11 @@ internal partial class SettingsForm : Form
 
         // Populate IME ON
         _pnlImeOnColor.BackColor   = Color.FromArgb(255, Color.FromArgb(settings.ImeOnColorArgb));
-        _trkImeOnOpacity.Value      = (int)Math.Round(Math.Clamp(settings.ImeOnOpacity * 100, 1, 100));
+        _trkImeOnOpacity.Value      = (int)Math.Round(Math.Clamp(settings.ImeOnOpacity * 100, 0, 100));
 
         // Populate IME OFF
         _pnlImeOffColor.BackColor  = Color.FromArgb(255, Color.FromArgb(settings.ImeOffColorArgb));
-        _trkImeOffOpacity.Value     = (int)Math.Round(Math.Clamp(settings.ImeOffOpacity * 100, 1, 100));
+        _trkImeOffOpacity.Value     = (int)Math.Round(Math.Clamp(settings.ImeOffOpacity * 100, 0, 100));
 
         UpdateOpacityLabels();
 
@@ -47,6 +41,17 @@ internal partial class SettingsForm : Form
         _btnImeOffColor.Click += (_, _) => PickColor(_pnlImeOffColor);
         _trkImeOnOpacity.ValueChanged  += (_, _) => UpdateOpacityLabels();
         _trkImeOffOpacity.ValueChanged += (_, _) => UpdateOpacityLabels();
+    }
+
+    // Centre on the working area of the monitor that holds the cursor.
+    // Done in OnShown so the post-AutoScale size (Width/Height) is used.
+    protected override void OnShown(EventArgs e)
+    {
+        base.OnShown(e);
+        var wa = Screen.FromPoint(Cursor.Position).WorkingArea;
+        Location = new Point(
+            wa.Left + (wa.Width  - Width)  / 2,
+            wa.Top  + (wa.Height - Height) / 2);
     }
 
     private void PickColor(Panel panel)
