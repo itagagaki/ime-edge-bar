@@ -1,20 +1,20 @@
 # IME Edge Bar
 
-A minimal Windows taskbar-edge indicator that shows the current **IME state** (ON / OFF) via background colour, while an arrow inside the bar tracks the **mouse pointer position** along the edge.
+A minimal Windows taskbar-edge indicator that shows the current **IME state** (ON / OFF) via background color, while an arrow inside the bar tracks the **mouse pointer position** along the edge.
 
 ---
 
 ## Features
 
-- **Colour-coded IME state** — background colour changes instantly when the IME is toggled
+- **Color-coded IME state** — background color changes instantly when the IME is toggled
 - **Mouse-position arrow** — a filled triangle points to the current cursor X (or Y) coordinate so you always know where on the screen the pointer is
-- **Per-pixel transparency** — configure independent colour and opacity (0 – 100 %) for IME ON and IME OFF states; the arrow is always drawn fully opaque regardless of opacity
+- **Per-pixel transparency** — configure independent color and opacity (0 – 100 %) for IME ON and IME OFF states; the arrow is always drawn fully opaque regardless of opacity
 - **Four edge positions** — attach the bar to the top, bottom, left, or right edge of the monitor
 - **Adjustable thickness** — 4 – 30 px
 - **Multi-monitor aware** — the bar follows the mouse to the active monitor and repositions automatically when display settings (resolution, DPI scale, taskbar) change
 - **Never steals focus** — uses `WS_EX_NOACTIVATE`; typing is never interrupted
 - **Hidden from Alt+Tab** — uses `WS_EX_TOOLWINDOW`
-- **System tray icon** — reflects the current IME state colour; right-click for the context menu
+- **System tray icon** — reflects the current IME state color; right-click for the context menu
 - **Global hotkey** `Ctrl+Alt+B` — toggle bar visibility
 - **Settings persisted** — saved as JSON in `%APPDATA%\ImeEdgeBar\settings.json`
 
@@ -24,8 +24,8 @@ A minimal Windows taskbar-edge indicator that shows the current **IME state** (O
 |---|---|
 | Position | Top edge |
 | Thickness | 8 px |
-| IME ON colour | Green, 100 % opacity |
-| IME OFF colour | Red, 100 % opacity |
+| IME ON color | Green, 100 % opacity |
+| IME OFF color | Red, 100 % opacity |
 
 ## Requirements
 
@@ -46,7 +46,7 @@ A minimal Windows taskbar-edge indicator that shows the current **IME state** (O
 | Toggle visibility | `Ctrl+Alt+B` or right-click tray icon → **表示 / 非表示** |
 | Exit | Right-click tray icon → **終了** |
 
-> **Tip:** Setting one IME state to 0 % opacity (fully transparent) while giving the other a visible colour is enough to distinguish both states — the arrow remains visible at all times.
+> **Tip:** Setting one IME state to 0 % opacity (fully transparent) while giving the other a visible color is enough to distinguish both states — the arrow remains visible at all times.
 
 ## Building from Source
 
