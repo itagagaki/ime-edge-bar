@@ -6,6 +6,7 @@ partial class AboutForm
     private System.Windows.Forms.Label _lblAppName;
     private System.Windows.Forms.Label _lblVersion;
     private System.Windows.Forms.LinkLabel _lnkGitHub;
+    private System.Windows.Forms.Button _btnKoFi;
     private System.Windows.Forms.Button _btnOk;
 
     protected override void Dispose(bool disposing)
@@ -19,6 +20,7 @@ partial class AboutForm
         _lblAppName = new System.Windows.Forms.Label();
         _lblVersion = new System.Windows.Forms.Label();
         _lnkGitHub  = new System.Windows.Forms.LinkLabel();
+        _btnKoFi    = new System.Windows.Forms.Button();
         _btnOk      = new System.Windows.Forms.Button();
         SuspendLayout();
 
@@ -45,9 +47,17 @@ partial class AboutForm
         _lnkGitHub.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
         _lnkGitHub.LinkClicked += _lnkGitHub_LinkClicked;
 
+        // _btnKoFi
+        _btnKoFi.Location = new System.Drawing.Point(102, 132);
+        _btnKoFi.Name     = "_btnKoFi";
+        _btnKoFi.Size     = new System.Drawing.Size(160, 30);
+        _btnKoFi.TabIndex = 1;
+        _btnKoFi.Text     = "\u2615 Buy me a coffee";
+        _btnKoFi.Click   += _btnKoFi_Click;
+
         // _btnOk
         _btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-        _btnOk.Location     = new System.Drawing.Point(190, 132);
+        _btnOk.Location     = new System.Drawing.Point(278, 132);
         _btnOk.Name         = "_btnOk";
         _btnOk.Size         = new System.Drawing.Size(80, 30);
         _btnOk.TabIndex     = 0;
@@ -58,7 +68,7 @@ partial class AboutForm
         AutoScaleDimensions   = new System.Drawing.SizeF(7F, 15F);
         AutoScaleMode         = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize            = new System.Drawing.Size(460, 180);
-        Controls.AddRange([_lblAppName, _lblVersion, _lnkGitHub, _btnOk]);
+        Controls.AddRange([_lblAppName, _lblVersion, _lnkGitHub, _btnKoFi, _btnOk]);
         FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         MaximizeBox     = false;
         MinimizeBox     = false;

@@ -21,4 +21,9 @@ internal partial class AboutForm : Form
     {
         Process.Start(new ProcessStartInfo(_lnkGitHub.Text) { UseShellExecute = true });
     }
+
+    private void _btnKoFi_Click(object? sender, EventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("https://ko-fi.com/itagaki") { UseShellExecute = true });
+    }
 }
