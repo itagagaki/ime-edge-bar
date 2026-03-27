@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -10,8 +10,8 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
     <AssemblyTitle>IME Edge Bar</AssemblyTitle>
     <AssemblyDescription>Screen-edge bar showing mouse position and IME state</AssemblyDescription>
-    <Company>itagagaki</Company>
-    <Version>1.0.0</Version>
+    <Company>Italsoft</Company>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
