@@ -12,6 +12,7 @@ namespace ImeEdgeBar;
 public partial class MainForm : Form
 {
     private readonly System.Windows.Forms.Timer _pollTimer;
+    private readonly System.Windows.Forms.Timer _blinkTimer;
     private readonly NotifyIcon _notifyIcon;
     private const int ToggleVisibilityHotkeyId = 1;
     private const int WS_EX_NOACTIVATE = 0x08000000;
@@ -23,6 +24,7 @@ public partial class MainForm : Form
     private Point _mousePos;
     private Screen? _currentScreen;
     private IntPtr _currentTrayIconHandle = IntPtr.Zero;
+    private bool _arrowIsWhite = true;
 
     // Settings
     private readonly AppSettings _settings = AppSettings.Load();
@@ -37,6 +39,9 @@ public partial class MainForm : Form
 
         _pollTimer = new System.Windows.Forms.Timer { Interval = 50 };
         _pollTimer.Tick += PollTimer_Tick;
+
+        _blinkTimer = new System.Windows.Forms.Timer { Interval = 500 };
+        _blinkTimer.Tick += BlinkTimer_Tick;
 
         _notifyIcon = new NotifyIcon { Text = "IME Edge Bar", Visible = true };
         UpdateTrayIcon();
@@ -55,6 +60,7 @@ public partial class MainForm : Form
         ApplySettings();
 
         _pollTimer.Start();
+        _blinkTimer.Start();
     }
 
     // -----------------------------------------------------------------------
@@ -103,6 +109,16 @@ public partial class MainForm : Form
             ApplySettings();
 
         base.WndProc(ref m);
+    }
+
+    // -----------------------------------------------------------------------
+    // Blink timer (500 ms): toggle arrow color between white and black
+    // -----------------------------------------------------------------------
+
+    private void BlinkTimer_Tick(object? sender, EventArgs e)
+    {
+        _arrowIsWhite = !_arrowIsWhite;
+        RefreshLayered();
     }
 
     // -----------------------------------------------------------------------
@@ -218,6 +234,7 @@ public partial class MainForm : Form
     /// Draws a filled triangle inside the bar at the current mouse coordinate.
     /// Arrow direction depends on the edge the bar is attached to:
     ///   Top → ↓   Bottom → ↑   Left → →   Right → ←
+    /// Arrow color blinks between white and black every 0.5 seconds.
     /// </summary>
     private void DrawArrow(Graphics g)
     {
@@ -255,7 +272,11 @@ public partial class MainForm : Form
             _                   => [new(pos - half, 0),  new(pos + half, 0),  new(pos, h)],
         };
 
-        using var brush = new SolidBrush(Color.FromArgb(255, GetContrastColor(BackColor)));
+        var arrowColor = _arrowIsWhite
+            ? Color.FromArgb(200, 255, 255, 255)
+            : Color.FromArgb(180, 0, 0, 0);
+        
+        using var brush = new SolidBrush(arrowColor);
         g.FillPolygon(brush, pts);
     }
 
