@@ -25,6 +25,7 @@ public partial class MainForm : Form
     private Screen? _currentScreen;
     private IntPtr _currentTrayIconHandle = IntPtr.Zero;
     private bool _arrowIsWhite = true;
+    private IntPtr _lastNormalForeground = IntPtr.Zero;
 
     // Settings
     private readonly AppSettings _settings = AppSettings.Load();
@@ -163,7 +164,22 @@ public partial class MainForm : Form
         if (foreground == IntPtr.Zero || IsOwnWindow(foreground)) return _imeOn;
 
         IntPtr imeWnd = NativeMethods.ImmGetDefaultIMEWnd(foreground);
-        if (imeWnd == IntPtr.Zero) return false;
+
+        if (imeWnd == IntPtr.Zero)
+        {
+            // 絵文字入力ウィンドウ (TextInputHost.exe) などの TSF ベースの
+            // ウィンドウが前景になると ImmGetDefaultIMEWnd が 0 を返す。
+            // 別プロセス・別スレッドのTSFコンパートメントには標準APIでアクセスできないため、
+            // 直前の通常ウィンドウのIME状態を維持する。
+            // （絵文字ウィンドウを閉じれば次のポーリングで正しい状態に更新される）
+            if (_lastNormalForeground == IntPtr.Zero) return _imeOn;
+            imeWnd = NativeMethods.ImmGetDefaultIMEWnd(_lastNormalForeground);
+            if (imeWnd == IntPtr.Zero) return _imeOn;
+        }
+        else
+        {
+            _lastNormalForeground = foreground;
+        }
 
         IntPtr result = NativeMethods.SendMessage(
             imeWnd,
