@@ -2,7 +2,7 @@ namespace ImeEdgeBar;
 
 partial class AboutForm
 {
-    private System.ComponentModel.IContainer? components = null;
+    private System.ComponentModel.IContainer? components = null;  // The warning that appears here is a bug in Visual Studio.
     private System.Windows.Forms.Label _lblAppName;
     private System.Windows.Forms.Label _lblVersion;
     private System.Windows.Forms.LinkLabel _lnkGitHub;

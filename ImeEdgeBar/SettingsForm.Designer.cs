@@ -87,24 +87,24 @@ partial class SettingsForm
         _grpPosition.Controls.AddRange([_rdoTop, _rdoBottom, _rdoLeft, _rdoRight]);
         _grpPosition.Location = new Point(12, 8);
         _grpPosition.Size     = new Size(368, 60);
-        _grpPosition.Text     = "表示位置";
+        _grpPosition.Text     = Strings.Settings_Position;
 
-        _rdoTop.Location    = new Point(12, 26);  _rdoTop.Size    = new Size(68, 20); _rdoTop.Text    = "上辺";
-        _rdoBottom.Location = new Point(92, 26);  _rdoBottom.Size = new Size(68, 20); _rdoBottom.Text = "下辺";
-        _rdoLeft.Location   = new Point(172, 26); _rdoLeft.Size   = new Size(68, 20); _rdoLeft.Text   = "左辺";
-        _rdoRight.Location  = new Point(252, 26); _rdoRight.Size  = new Size(68, 20); _rdoRight.Text  = "右辺";
+        _rdoTop.Location    = new Point(12, 26);  _rdoTop.Size    = new Size(68, 20); _rdoTop.Text    = Strings.Settings_Top;
+        _rdoBottom.Location = new Point(92, 26);  _rdoBottom.Size = new Size(68, 20); _rdoBottom.Text = Strings.Settings_Bottom;
+        _rdoLeft.Location   = new Point(172, 26); _rdoLeft.Size   = new Size(68, 20); _rdoLeft.Text   = Strings.Settings_Left;
+        _rdoRight.Location  = new Point(252, 26); _rdoRight.Size  = new Size(68, 20); _rdoRight.Text  = Strings.Settings_Right;
 
         // ── _grpSize ─────────────────────────────────────────────────────
         _grpSize.Controls.AddRange([_lblThickness, _numThickness, _lblThicknessUnit]);
         _grpSize.Location = new Point(12, 80);
         _grpSize.Size     = new Size(368, 52);
-        _grpSize.Text     = "バーの幅";
+        _grpSize.Text     = Strings.Settings_BarSize;
 
-        _lblThickness.Location  = new Point(12, 20); _lblThickness.Size  = new Size(34, 17); _lblThickness.Text = "幅：";
+        _lblThickness.Location  = new Point(12, 20); _lblThickness.Size  = new Size(34, 17); _lblThickness.Text = Strings.Settings_Thickness;
         _numThickness.Location  = new Point(50, 17); _numThickness.Size  = new Size(56, 23);
         _numThickness.Minimum   = 4; _numThickness.Maximum = 30;
         _lblThicknessUnit.Location = new Point(114, 20); _lblThicknessUnit.Size = new Size(160, 17);
-        _lblThicknessUnit.Text  = "ピクセル　(4〜30)";
+        _lblThicknessUnit.Text  = Strings.Settings_ThicknessUnit;
 
         // ── _grpImeOn ────────────────────────────────────────────────────
         _grpImeOn.Controls.AddRange([
@@ -112,14 +112,14 @@ partial class SettingsForm
             _lblImeOnOpacity, _trkImeOnOpacity, _lblImeOnOpacityValue]);
         _grpImeOn.Location = new Point(12, 144);
         _grpImeOn.Size     = new Size(368, 90);
-        _grpImeOn.Text     = "IME ON のとき";
+        _grpImeOn.Text     = Strings.Settings_ImeOn;
 
-        _lblImeOnColor.Location  = new Point(12, 28); _lblImeOnColor.Size  = new Size(34, 17); _lblImeOnColor.Text  = "色：";
+        _lblImeOnColor.Location  = new Point(12, 28); _lblImeOnColor.Size  = new Size(34, 17); _lblImeOnColor.Text  = Strings.Settings_Color;
         _pnlImeOnColor.Location  = new Point(50, 24); _pnlImeOnColor.Size  = new Size(42, 22);
         _pnlImeOnColor.BorderStyle = BorderStyle.FixedSingle;
-        _btnImeOnColor.Location  = new Point(100, 22); _btnImeOnColor.Size  = new Size(72, 26); _btnImeOnColor.Text  = "選択...";
+        _btnImeOnColor.Location  = new Point(100, 22); _btnImeOnColor.Size  = new Size(72, 26); _btnImeOnColor.Text  = Strings.Settings_ColorPick;
 
-        _lblImeOnOpacity.Location = new Point(12, 62); _lblImeOnOpacity.Size = new Size(72, 17); _lblImeOnOpacity.Text = "不透明度：";
+        _lblImeOnOpacity.Location = new Point(12, 62); _lblImeOnOpacity.Size = new Size(72, 17); _lblImeOnOpacity.Text = Strings.Settings_Opacity;
         _trkImeOnOpacity.Location = new Point(88, 52); _trkImeOnOpacity.Size = new Size(236, 30);
         _trkImeOnOpacity.Minimum  = 0; _trkImeOnOpacity.Maximum = 100; _trkImeOnOpacity.TickFrequency = 10;
         _lblImeOnOpacityValue.Location  = new Point(330, 62); _lblImeOnOpacityValue.Size  = new Size(34, 17);
@@ -131,14 +131,14 @@ partial class SettingsForm
             _lblImeOffOpacity, _trkImeOffOpacity, _lblImeOffOpacityValue]);
         _grpImeOff.Location = new Point(12, 246);
         _grpImeOff.Size     = new Size(368, 90);
-        _grpImeOff.Text     = "IME OFF のとき";
+        _grpImeOff.Text     = Strings.Settings_ImeOff;
 
-        _lblImeOffColor.Location  = new Point(12, 28); _lblImeOffColor.Size  = new Size(34, 17); _lblImeOffColor.Text  = "色：";
+        _lblImeOffColor.Location  = new Point(12, 28); _lblImeOffColor.Size  = new Size(34, 17); _lblImeOffColor.Text  = Strings.Settings_Color;
         _pnlImeOffColor.Location  = new Point(50, 24); _pnlImeOffColor.Size  = new Size(42, 22);
         _pnlImeOffColor.BorderStyle = BorderStyle.FixedSingle;
-        _btnImeOffColor.Location  = new Point(100, 22); _btnImeOffColor.Size  = new Size(72, 26); _btnImeOffColor.Text  = "選択...";
+        _btnImeOffColor.Location  = new Point(100, 22); _btnImeOffColor.Size  = new Size(72, 26); _btnImeOffColor.Text  = Strings.Settings_ColorPick;
 
-        _lblImeOffOpacity.Location = new Point(12, 62); _lblImeOffOpacity.Size = new Size(72, 17); _lblImeOffOpacity.Text = "不透明度：";
+        _lblImeOffOpacity.Location = new Point(12, 62); _lblImeOffOpacity.Size = new Size(72, 17); _lblImeOffOpacity.Text = Strings.Settings_Opacity;
         _trkImeOffOpacity.Location = new Point(88, 52); _trkImeOffOpacity.Size = new Size(236, 30);
         _trkImeOffOpacity.Minimum  = 0; _trkImeOffOpacity.Maximum = 100; _trkImeOffOpacity.TickFrequency = 10;
         _lblImeOffOpacityValue.Location  = new Point(330, 62); _lblImeOffOpacityValue.Size  = new Size(34, 17);
@@ -147,13 +147,13 @@ partial class SettingsForm
         // ── Mouse pointer indicator ───────────────────────────────────────
         _chkShowMousePointerIndicator.Location = new Point(20, 352);
         _chkShowMousePointerIndicator.Size     = new Size(240, 20);
-        _chkShowMousePointerIndicator.Text     = "マウスポインター位置を表示する";
+        _chkShowMousePointerIndicator.Text     = Strings.Settings_ShowMousePointerIndicator;
 
         // ── Buttons ──────────────────────────────────────────────────────
         _btnOk.Location     = new Point(222, 382); _btnOk.Size     = new Size(72, 26);
         _btnOk.Text         = "OK";               _btnOk.DialogResult = DialogResult.OK;
         _btnCancel.Location = new Point(306, 382); _btnCancel.Size = new Size(72, 26);
-        _btnCancel.Text     = "キャンセル";        _btnCancel.DialogResult = DialogResult.Cancel;
+        _btnCancel.Text     = Strings.Settings_Cancel;        _btnCancel.DialogResult = DialogResult.Cancel;
 
         // ── Form ─────────────────────────────────────────────────────────
         AcceptButton = _btnOk;
@@ -167,7 +167,7 @@ partial class SettingsForm
         MinimizeBox     = false;
         ShowInTaskbar   = false;
         StartPosition   = FormStartPosition.Manual;
-        Text            = "IME Edge Bar — 設定";
+        Text            = Strings.Settings_Title;
 
         _grpPosition.ResumeLayout(false);
         _grpSize.ResumeLayout(false);

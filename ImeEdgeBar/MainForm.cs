@@ -48,12 +48,12 @@ public partial class MainForm : Form
         UpdateTrayIcon();
 
         var contextMenu = new ContextMenuStrip();
-        contextMenu.Items.Add("表示 / 非表示  (Ctrl+Alt+B)", null, (_, _) => ToggleVisibility());
+        contextMenu.Items.Add(Strings.Menu_ToggleVisibility, null, (_, _) => ToggleVisibility());
         contextMenu.Items.Add(new ToolStripSeparator());
-        contextMenu.Items.Add("設定...", null, (_, _) => OpenSettings());
-        contextMenu.Items.Add("About", null, (_, _) => OpenAbout());
+        contextMenu.Items.Add(Strings.Menu_Settings, null, (_, _) => OpenSettings());
+        contextMenu.Items.Add(Strings.Menu_About, null, (_, _) => OpenAbout());
         contextMenu.Items.Add(new ToolStripSeparator());
-        contextMenu.Items.Add("終了", null, (_, _) => ExitApplication());
+        contextMenu.Items.Add(Strings.Menu_Exit, null, (_, _) => ExitApplication());
         _notifyIcon.ContextMenuStrip = contextMenu;
 
         _mousePos = Cursor.Position;
@@ -430,7 +430,7 @@ public partial class MainForm : Form
         if (_currentTrayIconHandle != IntPtr.Zero)
             NativeMethods.DestroyIcon(_currentTrayIconHandle);
         _currentTrayIconHandle = newHandle;
-        _notifyIcon.Text = _imeOn ? "IME Edge Bar — IME ON" : "IME Edge Bar — IME OFF";
+        _notifyIcon.Text = _imeOn ? Strings.Tray_ImeOn : Strings.Tray_ImeOff;
     }
 
     // -----------------------------------------------------------------------

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="Menu_ToggleVisibility" xml:space="preserve">
+    <value>Show / Hide  (Ctrl+Alt+B)</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Tray_ImeOn" xml:space="preserve">
+    <value>IME Edge Bar — IME ON</value>
+  </data>
+  <data name="Tray_ImeOff" xml:space="preserve">
+    <value>IME Edge Bar — IME OFF</value>
+  </data>
+
+  <data name="Settings_Title" xml:space="preserve">
+    <value>IME Edge Bar — Settings</value>
+  </data>
+  <data name="Settings_Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Settings_Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="Settings_Bottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="Settings_Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Settings_Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Settings_BarSize" xml:space="preserve">
+    <value>Bar size</value>
+  </data>
+  <data name="Settings_Thickness" xml:space="preserve">
+    <value>Width:</value>
+  </data>
+  <data name="Settings_ThicknessUnit" xml:space="preserve">
+    <value>pixels  (4–30)</value>
+  </data>
+  <data name="Settings_ImeOn" xml:space="preserve">
+    <value>When IME is ON</value>
+  </data>
+  <data name="Settings_Color" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="Settings_ColorPick" xml:space="preserve">
+    <value>Pick...</value>
+  </data>
+  <data name="Settings_Opacity" xml:space="preserve">
+    <value>Opacity:</value>
+  </data>
+  <data name="Settings_ImeOff" xml:space="preserve">
+    <value>When IME is OFF</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Settings_ShowMousePointerIndicator" xml:space="preserve">
+    <value>Show mouse pointer indicator</value>
+  </data>
+</root>

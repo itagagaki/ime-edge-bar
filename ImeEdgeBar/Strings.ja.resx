@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="Menu_ToggleVisibility" xml:space="preserve">
+    <value>表示 / 非表示  (Ctrl+Alt+B)</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>設定...</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>終了</value>
+  </data>
+  <data name="Tray_ImeOn" xml:space="preserve">
+    <value>IME Edge Bar — IME ON</value>
+  </data>
+  <data name="Tray_ImeOff" xml:space="preserve">
+    <value>IME Edge Bar — IME OFF</value>
+  </data>
+
+  <data name="Settings_Title" xml:space="preserve">
+    <value>IME Edge Bar — 設定</value>
+  </data>
+  <data name="Settings_Position" xml:space="preserve">
+    <value>表示位置</value>
+  </data>
+  <data name="Settings_Top" xml:space="preserve">
+    <value>上辺</value>
+  </data>
+  <data name="Settings_Bottom" xml:space="preserve">
+    <value>下辺</value>
+  </data>
+  <data name="Settings_Left" xml:space="preserve">
+    <value>左辺</value>
+  </data>
+  <data name="Settings_Right" xml:space="preserve">
+    <value>右辺</value>
+  </data>
+  <data name="Settings_BarSize" xml:space="preserve">
+    <value>バーの幅</value>
+  </data>
+  <data name="Settings_Thickness" xml:space="preserve">
+    <value>幅：</value>
+  </data>
+  <data name="Settings_ThicknessUnit" xml:space="preserve">
+    <value>ピクセル　(4〜30)</value>
+  </data>
+  <data name="Settings_ImeOn" xml:space="preserve">
+    <value>IME ON のとき</value>
+  </data>
+  <data name="Settings_Color" xml:space="preserve">
+    <value>色：</value>
+  </data>
+  <data name="Settings_ColorPick" xml:space="preserve">
+    <value>選択...</value>
+  </data>
+  <data name="Settings_Opacity" xml:space="preserve">
+    <value>不透明度：</value>
+  </data>
+  <data name="Settings_ImeOff" xml:space="preserve">
+    <value>IME OFF のとき</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Settings_ShowMousePointerIndicator" xml:space="preserve">
+    <value>マウスポインター位置を表示する</value>
+  </data>
+</root>
