@@ -254,6 +254,7 @@ public partial class MainForm : Form
     /// </summary>
     private void DrawArrow(Graphics g)
     {
+        if (!_settings.ShowMousePointerIndicator) return;
         if (_currentScreen == null) return;
 
         var wa = _currentScreen.WorkingArea;
@@ -496,6 +497,7 @@ public partial class MainForm : Form
                 _settings.ImeOnOpacity = form.ImeOnOpacity;
                 _settings.ImeOffColorArgb = form.ImeOffColorArgb;
                 _settings.ImeOffOpacity = form.ImeOffOpacity;
+                _settings.ShowMousePointerIndicator = form.ShowMousePointerIndicator;
                 _settings.Save();
                 ApplySettings();
                 UpdateTrayIcon();

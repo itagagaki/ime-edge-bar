@@ -32,6 +32,9 @@ partial class SettingsForm
     private TrackBar _trkImeOffOpacity;
     private Label _lblImeOffOpacityValue;
 
+    // Mouse pointer indicator
+    private CheckBox _chkShowMousePointerIndicator;
+
     // Buttons
     private Button _btnOk;
     private Button _btnCancel;
@@ -67,6 +70,7 @@ partial class SettingsForm
         _lblImeOffOpacity    = new Label();
         _trkImeOffOpacity    = new TrackBar();
         _lblImeOffOpacityValue = new Label();
+        _chkShowMousePointerIndicator = new CheckBox();
         _btnOk               = new Button();
         _btnCancel           = new Button();
 
@@ -140,10 +144,15 @@ partial class SettingsForm
         _lblImeOffOpacityValue.Location  = new Point(330, 62); _lblImeOffOpacityValue.Size  = new Size(34, 17);
         _lblImeOffOpacityValue.TextAlign = ContentAlignment.MiddleRight;
 
+        // ── Mouse pointer indicator ───────────────────────────────────────
+        _chkShowMousePointerIndicator.Location = new Point(20, 352);
+        _chkShowMousePointerIndicator.Size     = new Size(240, 20);
+        _chkShowMousePointerIndicator.Text     = "マウスポインター位置を表示する";
+
         // ── Buttons ──────────────────────────────────────────────────────
-        _btnOk.Location     = new Point(222, 352); _btnOk.Size     = new Size(72, 26);
+        _btnOk.Location     = new Point(222, 382); _btnOk.Size     = new Size(72, 26);
         _btnOk.Text         = "OK";               _btnOk.DialogResult = DialogResult.OK;
-        _btnCancel.Location = new Point(306, 352); _btnCancel.Size = new Size(72, 26);
+        _btnCancel.Location = new Point(306, 382); _btnCancel.Size = new Size(72, 26);
         _btnCancel.Text     = "キャンセル";        _btnCancel.DialogResult = DialogResult.Cancel;
 
         // ── Form ─────────────────────────────────────────────────────────
@@ -151,8 +160,8 @@ partial class SettingsForm
         CancelButton = _btnCancel;
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize  = new Size(392, 392);
-        Controls.AddRange([_grpPosition, _grpSize, _grpImeOn, _grpImeOff, _btnOk, _btnCancel]);
+        ClientSize  = new Size(392, 422);
+        Controls.AddRange([_grpPosition, _grpSize, _grpImeOn, _grpImeOff, _chkShowMousePointerIndicator, _btnOk, _btnCancel]);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox     = false;
         MinimizeBox     = false;

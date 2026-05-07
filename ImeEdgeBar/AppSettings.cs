@@ -36,6 +36,9 @@ internal class AppSettings
     /// <summary>Window opacity (0.0–1.0) when IME is OFF.</summary>
     public double ImeOffOpacity { get; set; } = 1.0;
 
+    /// <summary>Whether to draw the mouse pointer position indicator (arrow) on the bar.</summary>
+    public bool ShowMousePointerIndicator { get; set; } = true;
+
     public static AppSettings Load()
     {
         try

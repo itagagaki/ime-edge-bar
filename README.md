@@ -7,7 +7,7 @@ A minimal Windows taskbar-edge indicator that shows the current **IME state** (O
 ## Features
 
 - **Color-coded IME state** — background color changes instantly when the IME is toggled
-- **Mouse-position arrow** — a filled triangle points to the current cursor X (or Y) coordinate so you always know where on the screen the pointer is
+- **Mouse-position arrow** — a filled triangle points to the current cursor X (or Y) coordinate so you always know where on the screen the pointer is; can be toggled on/off in Settings
 - **Per-pixel transparency** — configure independent color and opacity (0 – 100 %) for IME ON and IME OFF states; the arrow is always drawn fully opaque regardless of opacity
 - **Four edge positions** — attach the bar to the top, bottom, left, or right edge of the monitor
 - **Adjustable thickness** — 4 – 30 px
@@ -26,6 +26,7 @@ A minimal Windows taskbar-edge indicator that shows the current **IME state** (O
 | Thickness | 8 px |
 | IME ON color | Green, 100 % opacity |
 | IME OFF color | Red, 100 % opacity |
+| Mouse pointer indicator | Enabled |
 
 ## Requirements
 
@@ -84,7 +85,7 @@ dotnet publish -c Release -r win-x64 -p:SelfContained=false -p:PublishSingleFile
 ## 機能
 
 - **IME 状態の色表示** — IME を切り替えると背景色が即座に変化
-- **マウス位置の矢印** — 現在のカーソル X 座標（または Y 座標）を指す三角形を描画。画面上のどこにポインターがあるかを常に把握できる
+- **マウス位置の矢印** — 現在のカーソル X 座標（または Y 座標）を指す三角形を描画。画面上のどこにポインターがあるかを常に把握できる。設定でON/OFFを切り替え可能
 - **ピクセル単位の透過** — IME ON・OFF それぞれに色と不透明度（0 〜 100 %）を独立設定可能。矢印は不透明度に関わらず常に完全不透明で描画
 - **4 辺への配置** — モニターの上辺・下辺・左辺・右辺から選択
 - **幅の調整** — 4 〜 30 px
@@ -103,6 +104,7 @@ dotnet publish -c Release -r win-x64 -p:SelfContained=false -p:PublishSingleFile
 | バーの幅 | 8 px |
 | IME ON の色 | 緑、不透明度 100 % |
 | IME OFF の色 | 赤、不透明度 100 % |
+| マウスポインター位置表示 | 有効 |
 
 ## 動作環境
 

@@ -13,6 +13,7 @@ internal partial class SettingsForm : Form
     public double ImeOnOpacity => _trkImeOnOpacity.Value / 100.0;
     public int ImeOffColorArgb  => _pnlImeOffColor.BackColor.ToArgb();
     public double ImeOffOpacity => _trkImeOffOpacity.Value / 100.0;
+    public bool ShowMousePointerIndicator => _chkShowMousePointerIndicator.Checked;
 
     public SettingsForm(AppSettings settings)
     {
@@ -34,6 +35,9 @@ internal partial class SettingsForm : Form
         // Populate IME OFF
         _pnlImeOffColor.BackColor  = Color.FromArgb(255, Color.FromArgb(settings.ImeOffColorArgb));
         _trkImeOffOpacity.Value     = (int)Math.Round(Math.Clamp(settings.ImeOffOpacity * 100, 0, 100));
+
+        // Populate mouse pointer indicator
+        _chkShowMousePointerIndicator.Checked = settings.ShowMousePointerIndicator;
 
         UpdateOpacityLabels();
 
