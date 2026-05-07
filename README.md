@@ -26,7 +26,7 @@ A minimal Windows taskbar-edge indicator that shows the current **IME state** (O
 | Thickness | 8 px |
 | IME ON color | Green, 100 % opacity |
 | IME OFF color | Red, 100 % opacity |
-| Mouse pointer indicator | Enabled |
+| Mouse pointer indicator | ON |
 
 ## Requirements
 
@@ -104,7 +104,7 @@ dotnet publish -c Release -r win-x64 -p:SelfContained=false -p:PublishSingleFile
 | バーの幅 | 8 px |
 | IME ON の色 | 緑、不透明度 100 % |
 | IME OFF の色 | 赤、不透明度 100 % |
-| マウスポインター位置表示 | 有効 |
+| マウスポインター位置表示 | ON |
 
 ## 動作環境
 
