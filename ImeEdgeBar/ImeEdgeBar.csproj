@@ -11,7 +11,7 @@
     <AssemblyTitle>IME Edge Bar</AssemblyTitle>
     <AssemblyDescription>Screen-edge bar showing mouse position and IME state</AssemblyDescription>
     <Company>Italsoft</Company>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
