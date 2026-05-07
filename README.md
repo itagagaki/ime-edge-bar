@@ -43,9 +43,9 @@ A minimal Windows taskbar-edge indicator that shows the current **IME state** (O
 
 | Action | How |
 |---|---|
-| Open Settings | Right-click tray icon → **設定...** |
-| Toggle visibility | `Ctrl+Alt+B` or right-click tray icon → **表示 / 非表示** |
-| Exit | Right-click tray icon → **終了** |
+| Open Settings | Right-click tray icon → **Settings...** |
+| Toggle visibility | `Ctrl+Alt+B` or right-click tray icon → **Show / Hide** |
+| Exit | Right-click tray icon → **Exit** |
 
 > **Tip:** Setting one IME state to 0 % opacity (fully transparent) while giving the other a visible color is enough to distinguish both states — the arrow remains visible at all times.
 
